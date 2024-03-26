@@ -156,7 +156,8 @@ def main():
             choices_list = [NEW_CONFIG_CHOICE, VIEW_SAVE_CONFIG_CHOICE]
             if cached_config is not None:
                 choices_list.append(SAVE_CONFIG_CHOICE)
-                choices_list.append(PUSH_CONFIG_CHOICE)
+                if detect_adb():
+                    choices_list.append(PUSH_CONFIG_CHOICE)
             choices_list.append(QUIT_CHOICE)
             choice = multiple_choice(stdscr, choices_list,
                                      "Autonomous Creation Engine Config:")
