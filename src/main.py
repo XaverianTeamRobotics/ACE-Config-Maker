@@ -81,7 +81,7 @@ def make_config(stdscr):
     actions = []
     while True:
         action_list = config.AVAILABLE_ACTIONS.copy()
-        action_list.append("QUIT")
+        action_list.append("DONE")
         action_list_flags = [0] * len(config.AVAILABLE_ACTIONS)
         action_list_flags.append(curses.color_pair(1) + curses.A_BOLD)
         warnings = []
@@ -105,7 +105,7 @@ def make_config(stdscr):
             action_list[warning] = f"{warning_symbol} {action_list[warning]}"
             action_list_flags[warning] = curses.color_pair(2) + curses.A_BOLD
         action = multiple_choice(stdscr, action_list, "Select action to add: ", action_list_flags)
-        if action == "QUIT":
+        if action == "DONE":
             break
         actions.append(action)
         add_more = multiple_choice(stdscr, ["Yes", "No"], "Add more actions? ")
@@ -191,7 +191,7 @@ def main():
                 save_slot = multiple_choice(stdscr, save_slots, "Select save slot: ", save_slots_flags)
                 if save_slot == "Back":
                     continue
-                else:
+                elif "Empty" not in save_slot:
                     slot_id = save_slot.split(" ")[0]
                     slot_action = multiple_choice(stdscr, ["Load", "Inspect", "Delete", "Back"], f"Selected slot {slot_id}: ")
                     if slot_action == "Delete":
