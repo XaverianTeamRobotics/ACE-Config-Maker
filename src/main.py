@@ -94,6 +94,9 @@ def make_config(stdscr):
                 warnings.append(action_list.index("DELAY_1S"))
                 warnings.append(action_list.index("DELAY_5S"))
                 warnings.append(action_list.index("SPIKE_MARK_SCORE"))
+                warnings.append(action_list.index("PICKUP_FROM_STACK"))
+            if (team_color == "RED" and starting_position == "RIGHT") or (team_color == "BLUE" and starting_position == "LEFT"):
+                warnings.append(action_list.index("PICKUP_FROM_STACK"))
             for action in actions:
                 if "PARK" in action:
                     warnings = range(len(action_list) - 1)
@@ -230,6 +233,9 @@ def main():
     except Exception as e:
         end_curses(stdscr)
         print(e)
+        sys.exit(1)
+    except KeyboardInterrupt:
+        end_curses(stdscr)
         sys.exit(1)
     end_curses(stdscr)
 
